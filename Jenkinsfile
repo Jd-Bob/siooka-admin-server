@@ -10,11 +10,11 @@ node {
             sh "./mvnw clean install"
         }
         stage("java package") {
-            sh "docker stop demo"
-            sh "docker rmi demo"
+            sh "docker stop admin-server"
+            sh "docker rmi admin-server"
         }
         stage("docker image") {
-            def customImage = docker.build("demo", ".")
+            def customImage = docker.build("admin-server", ".")
         }
     }
 
@@ -30,7 +30,7 @@ node {
         }
 
         stage("Deployment") {
-            sh "docker run -p 8084:8084 demo"
+            sh "docker run -p 8084:8084 admin-server"
         }
     }
 }
